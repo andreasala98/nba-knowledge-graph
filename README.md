@@ -1,2 +1,4 @@
 # nba-knowledge-graph
-Knowledge Graph of the 2022 NBA Players and Teams
+Knowledge Graph of the NBA Players and Teams
+
+Made just for fun and still in development
