@@ -1,6 +1,6 @@
 # nba-knowledge-graph
 
-<img align="right" width="300" src="https://github.com/andreasala98/nba-knowledge-graph/blob/master/utils/logoimage.jpg">
+<img align="right" width="300" src="https://github.com/andreasala98/nba-knowledge-graph/blob/master/utils/logoimpage.png">
 
 Knowledge Graph of the NBA Players and Teams
 
