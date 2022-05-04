@@ -3,6 +3,7 @@
 # node2vec algo call directly on neo
 
 from matplotlib import pyplot as plt
+import seaborn as sns
 import numpy as np
 from py2neo import Graph
 import pandas as pd
@@ -61,6 +62,8 @@ class NODE2VEC:
 		self.reduce(dim = 2)
 		print(self.reduced)
 
+		fg = sns.scatterplot(data=self.reduced, x='pca0', y='pca1', hue='label')
+		plt.show()
 
 if __name__ == "__main__":
 	NODE2VEC().main()
