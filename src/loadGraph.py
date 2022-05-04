@@ -1,20 +1,18 @@
 import pandas as pd
-from py2neo import Graph, Node, Relationship
+from py2neo import Graph, Node
 
 import os
 import sys
 from pathlib import Path
 from tqdm import tqdm, trange
 
-ROOT_DIR = Path(os.path.dirname(os.path.abspath(__file__))).parent
-sys.path.append(ROOT_DIR)
+
+#sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from utils.edges import *
 
 
 class NBAGraph:
-    class playsFor(Relationship): pass #player --> team
-    class won(Relationship): pass      #player --> prize
-    class wentTo(Relationship): pass   #player --> college
-    class playsAt(Relationship): pass  #player --> position
 
     def __init__(self, port=7687):
 
@@ -31,18 +29,18 @@ class NBAGraph:
        n.__primarylabel__='PLAYER'
        self.driver.merge(n)
 
-       col = self.wentTo(n, collegeNode)
+       col = wentTo(n, collegeNode)
        self.driver.merge(col)
 
-       rel = self.playsFor(n, teamNode)
+       rel = playsFor(n, teamNode)
        self.driver.merge(rel)
 
-       role = self.playsAt(n, positionNode)
+       role = playsAt(n, positionNode)
        self.driver.merge(role)
 
        for prizeName, prizeNode in zip(["MVP","MIP","6MOTY"], prizeNodes):
            if n["NAME"] in self.prizes[self.prizes["prize"]==prizeName]["player"].values:
-               rel_w = self.won(n, prizeNode)
+               rel_w =  won(n, prizeNode)
                self.driver.merge(rel_w)
 
        return n
@@ -129,7 +127,6 @@ class NBAGraph:
             t =   self.createTeamNode(**team_args)
             p =   self.createPlayerNode(teamNode=t, positionNode=pos, collegeNode=c,
                                         prizeNodes=prizeList, **player_args)
-
 
 
 if __name__ == "__main__":
